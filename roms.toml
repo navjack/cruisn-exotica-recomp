@@ -1,0 +1,11 @@
+title = "Cruis'n Exotica"
+game_code = "NXOE"
+boot_address = 0x80000400
+
+[[rom]]
+file = "../../roms/Cruis'n Exotica (U) [!].z64"
+sha256 = "d26ecb1b3a3dc965acc1063cc243ab573bf5ffca310e96aff2f6d2265a49f0b1"
+crc1 = "46a3f7af"
+crc2 = "0f7591d0"
+version = 0
+preferred = true
