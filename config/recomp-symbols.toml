@@ -1,0 +1,9 @@
+[input]
+# Symbol-file mode is for a complete runtime-addressed symbol map.
+rom_file_path = "../../../roms/Cruis'n Exotica (U) [!].z64"
+symbols_file_path = "../input/cruisn-exotica.syms.toml"
+output_func_path = "../generated"
+entrypoint = 0x80000400
+functions_per_output_file = 50
+recomp_include = "#include \"recomp.h\""
+uses_mips3_float_mode = false
