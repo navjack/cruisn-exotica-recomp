@@ -16,3 +16,7 @@ executable is generated.
 
 The boot address recorded from the ROM header is `0x80000400`. It must be
 matched against the supplied ELF before generated output is treated as valid.
+
+The committed [`splat.yaml`](splat.yaml) records the ROM-derived entry, main,
+data, and BSS boundaries. Run `./scripts/split_game.sh cruisn-exotica` from the
+workspace root to regenerate the ignored disassembly workspace.
