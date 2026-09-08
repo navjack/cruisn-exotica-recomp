@@ -6,7 +6,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 include("${CMAKE_CURRENT_SOURCE_DIR}/../../native/CruisnNative.cmake")
 cruisn_add_native_app(
     GAME_ID cruisn_exotica
-    ROM_HASH 86ea859427273eea
+    ROM_HASH 3e67964e5f3d117f
     INTERNAL_NAME "CRUIS'N EXOTICA"
     DISPLAY_NAME "Cruis'n Exotica"
     WINDOW_TITLE "Cruis'n Exotica - Recompiled")
