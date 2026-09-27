@@ -7,3 +7,19 @@ entrypoint = 0x80000400
 functions_per_output_file = 50
 recomp_include = "#include \"recomp.h\""
 uses_mips3_float_mode = false
+
+[patches]
+# Exception-vector, thread-dispatch, and TLB routines leave the normal C
+# execution domain; ultramodern owns threads, interrupts, and address mapping.
+# __osProbeTLB is named in the map and already skipped by N64Recomp's built-in
+# symbol lists.
+stubs = [
+    "func_80045C00", # __osException
+    "func_80047D80", # osMapTLBRdb (tlbwi); the runtime has no replacement
+    "func_8004618C", # branches into __osException (World func_80323B24)
+    "func_8004627C", # __osEnqueueAndYield (World func_80323C0C)
+    "func_800463E4", # eret (__osDispatchThread)
+    "func_80047DE0", # tlbwi
+    # Handwritten routine that jumps into RSP address space (USA func_8012F520 block).
+    "func_8004B620",
+]

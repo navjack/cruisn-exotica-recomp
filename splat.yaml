@@ -45,7 +45,14 @@ segments:
       - [0x1060, asm]
       - [0x4C270, data]
       - { type: bss, vram: 0x8005B8F0 }
-  - type: bin
+  # func_800305A0 reads ROM 0x5C4F0-0x756E0 to 0x8032C000 and clears BSS to 0x803477B0.
+  - name: overlay
+    type: code
     start: 0x5C4F0
-    follows_vram: main
+    vram: 0x8032C000
+    subsegments:
+      - [0x5C4F0, asm]
+      - [0x74690, data]
+  - type: bin
+    start: 0x756E0
   - [0x1000000]

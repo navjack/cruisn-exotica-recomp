@@ -1,26 +1,35 @@
-# Cruis'n Exotica
+# Cruis'n Exotica recomp
 
-Status: repository scaffolded; native game binary is waiting for game-specific
-MIPS ELF or complete symbol data and title RSP sources.
+Title repository for the native Apple Silicon macOS port of *Cruis'n Exotica*
+(N64, US). It builds inside the
+[cruisn-recomp](https://github.com/navjack/cruisn-recomp) workspace, which
+clones it into `games/cruisn-exotica`. **No game data is included; you need
+your own ROM.**
 
-Run the real recompiler preflight from the workspace root:
+**Status: boots, loads its gameplay code, and plays audio. Not yet played
+through.**
 
-```text
-./scripts/build_game.sh cruisn-exotica
+## Contents
+
+- `input/cruisn-exotica.syms.toml` — the CPU symbol map: entry, main, and the
+  fixed overlay the game reads from ROM `0x5C4F0-0x756E0` to `0x8032C000`.
+- `config/recomp-symbols.toml` — N64Recomp configuration: exception and TLB
+  stubs.
+- `rsp/n_aspMain.us.toml` — the `n_aspMain` audio microcode at ROM `0x4D670`
+  (identical to Super Smash Bros.), recompiled with RSPRecomp at build time.
+  Graphics use F3DEX2 fifo 2.08, which the workspace's RT64 patch maps to
+  F3DEX2.
+- `roms.toml`, `splat.yaml` — the supported dump's SHA-256 and the ROM
+  segmentation.
+
+Saves are EEPROM 4K.
+
+## Build
+
+From the workspace root, with `roms/Cruis'n Exotica (U) [!].z64` in place:
+
+```sh
+./scripts/build_game_app.sh cruisn-exotica
 ```
 
-It verifies the ROM SHA-256 and then invokes N64Recomp. Supply either
-`input/cruisn-exotica.elf` or a complete `input/cruisn-exotica.syms.toml`;
-otherwise it exits with an actionable missing-input message. No placeholder
-executable is generated.
-
-The boot address recorded from the ROM header is `0x80000400`. It must be
-matched against the supplied ELF before generated output is treated as valid.
-
-The committed [`splat.yaml`](splat.yaml) records the ROM-derived entry, main,
-data, and BSS boundaries. Run `./scripts/split_game.sh cruisn-exotica` from the
-workspace root to regenerate the ignored disassembly workspace.
-
-When the metadata and RSP sources are available, build the native app with
-`./scripts/build_game_app.sh cruisn-exotica`. The resulting arm64 bundle
-accepts `--rom /path/to/Cruis'n Exotica (U) [!].z64` on first launch.
+This produces `Cruis'n Exotica.app` in the workspace root.
